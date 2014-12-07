@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/layout/default.xhtml">
+    <ui:define name="content">
+
+        <div class="container">
+            <h:form id="reg" styleClass="form-register" >
+                <h2 class="form-signin-heading">Please sign in</h2>
+
+                <h:messages errorClass="alert alert-danger"/>
+
+                <h:outputLabel for="inputEmail" value="Email address"/>
+                <h:inputText type="email" id="inputEmail" name="email" styleClass="form-control"
+                       placeholder="Email address" required="true" autofocus="true" value="#{userBean.user.email}" />
+
+                <h:outputLabel for="inputPassword" value="Password"/>
+                <h:inputSecret id="inputPassword" styleClass="form-control" placeholer="Password" required="true"
+                               value="#{userBean.user.password}" />
+
+                <h:commandLink id="register" action="#{userBean.login}"
+                               styleClass="btn btn-lg btn-primary btn-block" value="Sign in"/>
+            </h:form>
+        </div>
+
+
+    </ui:define>
+
+</ui:composition>
