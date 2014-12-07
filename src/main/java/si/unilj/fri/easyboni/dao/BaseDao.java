@@ -23,7 +23,7 @@ public abstract class BaseDao {
             String port = st.nextToken();
             String databaseName = st.nextToken();
             String jdbcUrl = String.format("jdbc:postgresql://%s:%s/%s?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", host, port, databaseName);
-            Map<String, String> properties = new HashMap<>();
+            Map<String, String> properties = new HashMap<String, String>();
             properties.put("javax.persistence.jdbc.url", databaseUrl);
             properties.put("javax.persistence.jdbc.user", userName);
             properties.put("javax.persistence.jdbc.password", password);
