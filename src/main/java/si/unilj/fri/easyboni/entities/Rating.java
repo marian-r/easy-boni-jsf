@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "ratings", schema = "", catalog = "easy_boni")
+@Table(name = "ratings")
 public class Rating implements Serializable {
     private RatingPK primaryKey;
     private int value;

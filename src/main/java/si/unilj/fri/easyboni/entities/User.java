@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "users", schema = "", catalog = "easy_boni")
+@Table(name = "users")
 public class User {
     private int id;
     private String email;
@@ -16,7 +16,6 @@ public class User {
     private Collection<Rating> ratings;
 
     @Id
-    @GeneratedValue
     @Column(name = "id")
     public int getId() {
         return id;

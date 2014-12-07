@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "comments", schema = "", catalog = "easy_boni")
+@Table(name = "comments")
 public class Comment implements Serializable {
     private CommentPK primaryKey;
     private String text;
