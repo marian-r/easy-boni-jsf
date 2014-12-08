@@ -74,9 +74,7 @@ public class UserBean {
 
         user = existingUser;
 
-        ExternalContext externalContext = facesContext.getExternalContext();
-        externalContext.redirect("http://easy-boni.herokuapp.com/");
-        return "";
+        return "/index?faces-redirect=true";
     }
 
     public String logout() {
