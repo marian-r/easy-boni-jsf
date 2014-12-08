@@ -1,10 +1,48 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>JSF sample</title>
-</head>
-<body>
-<h2>#{userBean.user.firstName} #{userBean.user.lastName}</h2>
-</body>
-</html>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/layout/default.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <c:forEach items="#{restaurantBean.restaurants}" var="restaurant">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        #{restaurant.value.name}
+
+                        <h:panelGroup layout="block" id="rating-#{restaurant.value.id}" styleClass="pull-right">
+                            <h:outputText id="rating-value-#{restaurant.value.id}" value="#{restaurant.value.rating}"/>
+                            <c:forEach var="i" begin="1" end="5">
+                                <h:commandLink action="#{restaurantBean.addRating}" style="color: #fff">
+                                    <f:param name="restaurantID" value="#{restaurant.value.id}"/>
+                                    <f:param name="value" value="#{i}"/>
+                                    <f:ajax render="rating-#{restaurant.value.id}"/>
+                                    <c:choose>
+                                        <c:when test="#{restaurant.value.rating ge i}">
+                                            <span class="star glyphicon glyphicon-star"></span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="star glyphicon glyphicon-star-empty"></span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </h:commandLink>
+                            </c:forEach>
+                        </h:panelGroup>
+                    </div>
+                    <div class="panel-body">
+                        <address class="text-muted">#{restaurant.value.address}</address>
+
+                        <div class="price-container pull-left">
+                            Price: <span class="price text-primary">#{restaurant.value.price}</span>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

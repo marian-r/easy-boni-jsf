@@ -81,6 +81,17 @@
       <artifactId>jersey-spring</artifactId>
       <version>1.18.2</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
+    </dependency>
   </dependencies>
   
   <build>
@@ -92,7 +103,7 @@
         <artifactId>heroku-maven-plugin</artifactId>
         <version>0.1.8</version>
         <configuration>
-          <appName>jsf-sample</appName>
+          <appName>easy-boni-jsf</appName>
           <jdkVersion>1.8</jdkVersion>
         </configuration>
       </plugin>

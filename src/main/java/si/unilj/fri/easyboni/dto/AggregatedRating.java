@@ -2,7 +2,7 @@ package si.unilj.fri.easyboni.dto;
 
 public class AggregatedRating {
     private int restaurantId;
-    private int rating;
+    private float rating;
 
     public AggregatedRating(Integer restaurantId, Integer rating) {
         this.restaurantId = restaurantId;
@@ -17,11 +17,11 @@ public class AggregatedRating {
         this.restaurantId = restaurantId;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 }
