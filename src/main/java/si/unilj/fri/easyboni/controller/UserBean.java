@@ -10,6 +10,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.NoResultException;
 import java.io.IOException;
 
 @Named
@@ -62,8 +63,11 @@ public class UserBean {
 
     public String login() throws IOException {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        User existingUser = userDao.findByEmail(user.getEmail());
-        if (existingUser == null) {
+        User existingUser;
+
+        try {
+            existingUser = userDao.findByEmail(user.getEmail());
+        } catch (NoResultException e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "User not found.", "User not found.");
             facesContext.addMessage(null, message);
             return "";

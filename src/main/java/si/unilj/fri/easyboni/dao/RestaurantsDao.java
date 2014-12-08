@@ -49,7 +49,7 @@ public class RestaurantsDao extends BaseDao {
         JSONParser parser = new JSONParser();
         JSONArray a = null;
         try {
-            String json = IOUtils.toString(new URL("http://easy-boni.herokuapp.com/restaurants.json"));
+            String json = IOUtils.toString(new URL("http://easy-boni.herokuapp.com/restaurants.json"), "UTF-8");
             a = (JSONArray) parser.parse(json);
         } catch (IOException e) {
             e.printStackTrace();

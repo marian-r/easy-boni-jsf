@@ -13,8 +13,8 @@
 
             <c:choose>
                 <c:when test="#{userBean.userLoggedIn}">
-                    <h:form>
-                        <h:commandLink action="#{userBean.logout}" styleClass="navbar-right btn btn-default navbar-btn" value="Sign out"/>
+                    <h:form styleClass="navbar-form navbar-right">
+                        <h:commandLink action="#{userBean.logout}" styleClass="btn btn-default" value="Sign out"/>
                     </h:form>
                     <p class="navbar-text navbar-right">
                         Signed in as #{userBean.user.firstName} #{userBean.user.lastName}
@@ -22,8 +22,8 @@
                 </c:when>
                 <c:otherwise>
                     <div class="navbar-header navbar-right">
-                        <h:link outcome="user/login" styleClass="navbar-right btn btn-default navbar-btn" value="Sign in"/>
-                        <h:link outcome="user/register" styleClass="navbar-right btn btn-default navbar-btn" value="Register"/>
+                        <h:link outcome="/user/login" styleClass="navbar-right btn btn-default navbar-btn" value="Sign in"/>
+                        <h:link outcome="/user/register" styleClass="navbar-right btn btn-default navbar-btn" value="Register"/>
                     </div>
                 </c:otherwise>
             </c:choose>
