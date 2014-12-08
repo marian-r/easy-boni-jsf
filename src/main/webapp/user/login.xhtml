@@ -13,12 +13,14 @@
                 <h:messages errorClass="alert alert-danger"/>
 
                 <h:outputLabel for="inputEmail" value="Email address"/>
-                <h:inputText type="email" id="inputEmail" name="email" styleClass="form-control"
-                       placeholder="Email address" required="true" autofocus="true" value="#{userBean.user.email}" />
+                <h:inputText type="email" id="inputEmail" name="email" value="#{userBean.user.email}"
+                             styleClass="form-control" placeholder="Email address" required="true" autofocus="true"
+                             requiredMessage="Please provide your e-mail address"/>
 
                 <h:outputLabel for="inputPassword" value="Password"/>
-                <h:inputSecret id="inputPassword" styleClass="form-control" placeholer="Password" required="true"
-                               value="#{userBean.user.password}" />
+                <h:inputSecret id="inputPassword" value="#{userBean.user.password}"
+                               styleClass="form-control" required="true"
+                               requiredMessage="Please provide a password."/>
 
                 <h:commandLink id="register" action="#{userBean.login}"
                                styleClass="btn btn-lg btn-primary btn-block" value="Sign in"/>
