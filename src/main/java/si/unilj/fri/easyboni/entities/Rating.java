@@ -1,10 +1,16 @@
 package si.unilj.fri.easyboni.entities;
 
+import si.unilj.fri.easyboni.dto.AggregatedRating;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "ratings")
+@SqlResultSetMapping(name="AggregatedRatings", classes = {
+        @ConstructorResult(targetClass = AggregatedRating.class,
+                columns = {@ColumnResult(name="restaurantId", type = Integer.class), @ColumnResult(name="rating", type = Integer.class)})
+})
 public class Rating implements Serializable {
     private RatingPK primaryKey;
     private int value;
