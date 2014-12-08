@@ -2,8 +2,10 @@ package si.unilj.fri.easyboni.dao;
 
 import si.unilj.fri.easyboni.entities.User;
 
+import javax.inject.Named;
 import javax.persistence.Query;
 
+@Named
 public class UserDao extends BaseDao {
 
     public void create(User user) {

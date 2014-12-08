@@ -9,24 +9,27 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 
+@Named
 @ManagedBean(name = "userBean", eager = true)
 @SessionScoped
 public class UserBean {
 
+    @Inject
     private UserDao userDao;
+
+    @Named
     private User user;
 
     @Named
     private String confirmPassword;
 
-    @Named
     public User getUser() {
         return user;
     }
-
 
     public String getConfirmPassword() {
         return confirmPassword;
@@ -34,6 +37,11 @@ public class UserBean {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    @PostConstruct
+    public void initialize() {
+        user = new User();
     }
 
     public String register() throws IOException {
@@ -48,7 +56,6 @@ public class UserBean {
 
         return login();
     }
-
 
     public String login() throws IOException {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -70,14 +77,10 @@ public class UserBean {
         ExternalContext externalContext = facesContext.getExternalContext();
         externalContext.redirect("http://easy-boni.herokuapp.com/");
         return "";
-
-        //return "/index?faces-redirect=true";
     }
 
-    @PostConstruct
-    public void populatePrincipal() {
-        userDao = new UserDao();
+    public String logout() {
         user = new User();
-
+        return "login.xhtml";
     }
 }
