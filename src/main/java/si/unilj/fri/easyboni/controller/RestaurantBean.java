@@ -24,8 +24,6 @@ public class RestaurantBean {
     @Named
     private Map<Long, RestaurantTO> restaurants;
 
-    //private Map<Long, Float> ratings;
-
     public Map<Long, RestaurantTO> getRestaurants() {
         if (restaurants == null) {
             restaurants = restaurantService.findAllRestaurants();

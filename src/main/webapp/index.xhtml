@@ -13,7 +13,6 @@
                         #{restaurant.value.name}
 
                         <h:panelGroup layout="block" id="rating-#{restaurant.value.id}" styleClass="pull-right">
-                            <h:outputText id="rating-value-#{restaurant.value.id}" value="#{restaurant.value.rating}"/>
                             <c:forEach var="i" begin="1" end="5">
                                 <h:commandLink action="#{restaurantBean.addRating}" style="color: #fff">
                                     <f:param name="restaurantID" value="#{restaurant.value.id}"/>

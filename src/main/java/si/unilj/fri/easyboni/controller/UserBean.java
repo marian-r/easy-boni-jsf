@@ -11,7 +11,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
-import java.io.IOException;
 
 @Named
 @ManagedBean(name = "userBean", eager = true)
@@ -48,11 +47,11 @@ public class UserBean {
         user = new User();
     }
 
-    public String register() throws IOException {
+    public String register() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         if (!user.getPassword().equals(confirmPassword)) {
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Passwords does not match.", "Passwords does not match."));
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords does not match.", "Passwords does not match.");
+            facesContext.addMessage(null, message);
             return "";
         }
 
@@ -61,7 +60,7 @@ public class UserBean {
         return login();
     }
 
-    public String login() throws IOException {
+    public String login() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         User existingUser;
 
