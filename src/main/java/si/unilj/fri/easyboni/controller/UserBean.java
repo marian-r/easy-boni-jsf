@@ -1,7 +1,7 @@
 package si.unilj.fri.easyboni.controller;
 
-import si.unilj.fri.easyboni.dao.UserDao;
 import si.unilj.fri.easyboni.entities.User;
+import si.unilj.fri.easyboni.service.UserService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -10,7 +10,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.NoResultException;
 
 @Named
 @ManagedBean(name = "userBean", eager = true)
@@ -18,7 +17,7 @@ import javax.persistence.NoResultException;
 public class UserBean {
 
     @Inject
-    private UserDao userDao;
+    private UserService userService;
 
     @Named
     private User user;
@@ -55,7 +54,7 @@ public class UserBean {
             return "";
         }
 
-        userDao.create(user);
+        userService.create(user);
 
         return login();
     }
@@ -64,9 +63,8 @@ public class UserBean {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         User existingUser;
 
-        try {
-            existingUser = userDao.findByEmail(user.getEmail());
-        } catch (NoResultException e) {
+        existingUser = userService.findByEmail(user.getEmail());
+        if (existingUser == null) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "User not found.", "User not found.");
             facesContext.addMessage(null, message);
             return "";
