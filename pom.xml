@@ -82,6 +82,7 @@
       <version>1.18.2</version>
     </dependency>
 
+    <!-- JSON -->
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
