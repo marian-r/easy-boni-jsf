@@ -2,9 +2,9 @@ package si.unilj.fri.easyboni.rest;
 
 import si.unilj.fri.easyboni.dto.AggregatedRating;
 import si.unilj.fri.easyboni.controller.UserBean;
-import si.unilj.fri.easyboni.dao.RestaurantsDao;
 import si.unilj.fri.easyboni.entities.Rating;
 import si.unilj.fri.easyboni.entities.RatingPK;
+import si.unilj.fri.easyboni.service.RestaurantService;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,7 +18,7 @@ import java.util.List;
 public class RestaurantsRestService {
 
     @Inject
-    private RestaurantsDao restaurantsDao;
+    private RestaurantService restaurantService;
 
     @Inject
     private UserBean userBean;
@@ -34,22 +34,15 @@ public class RestaurantsRestService {
             throw new WebApplicationException(Response.Status.FORBIDDEN);
         }
 
-        Rating rating = new Rating();
-        RatingPK primaryKey = new RatingPK();
-        primaryKey.setRestaurantId(restaurantId);
-        primaryKey.setUserId(userBean.getUser().getId());
-        rating.setPrimaryKey(primaryKey);
-        rating.setValue(value);
+        restaurantService.addRating(restaurantId, userBean.getUser(), value);
 
-        restaurantsDao.createRating(rating);
-
-        return restaurantsDao.findRatingForOne(restaurantId);
+        return restaurantService.findRatingForOne(restaurantId);
     }
 
     @GET
     @Path("/ratings")
     @Produces(MediaType.APPLICATION_JSON)
     public List<AggregatedRating> getRatingsInJSON() {
-        return restaurantsDao.findAllRatings();
+        return restaurantService.findAllRatings();
     }
 }

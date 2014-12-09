@@ -1,9 +1,7 @@
 package si.unilj.fri.easyboni.controller;
 
-import si.unilj.fri.easyboni.dao.RestaurantsDao;
 import si.unilj.fri.easyboni.dto.RestaurantTO;
-import si.unilj.fri.easyboni.entities.Rating;
-import si.unilj.fri.easyboni.entities.RatingPK;
+import si.unilj.fri.easyboni.service.RestaurantService;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -18,7 +16,7 @@ import java.util.Map;
 public class RestaurantBean {
 
     @Inject
-    private RestaurantsDao restaurantsDao;
+    private RestaurantService restaurantService;
 
     @Inject
     private UserBean userBean;
@@ -30,7 +28,7 @@ public class RestaurantBean {
 
     public Map<Long, RestaurantTO> getRestaurants() {
         if (restaurants == null) {
-            restaurants = restaurantsDao.findAllRestaurants();
+            restaurants = restaurantService.findAllRestaurants();
         }
 
         return restaurants;
@@ -45,16 +43,8 @@ public class RestaurantBean {
             return "";
         }
 
-        Rating rating = new Rating();
-        RatingPK primaryKey = new RatingPK();
-        primaryKey.setRestaurantId(restaurantId);
-        primaryKey.setUserId(userBean.getUser().getId());
-        rating.setPrimaryKey(primaryKey);
-        rating.setValue(value);
-
-        restaurantsDao.createRating(rating);
-
-        restaurants = restaurantsDao.findAllRestaurants();
+        restaurantService.addRating(restaurantId, userBean.getUser(), value);
+        restaurants = restaurantService.findAllRestaurants();
 
         return "/index";
     }
