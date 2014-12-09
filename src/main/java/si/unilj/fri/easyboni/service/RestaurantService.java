@@ -25,7 +25,7 @@ public class RestaurantService {
     @Inject
     private RatingDao ratingsDao;
 
-    public void addRating(int restaurantId, User user, int value) {
+    public void addRating(int restaurantId, User user, int value) throws DuplicateEntityException {
         Rating rating = new Rating();
         RatingPK primaryKey = new RatingPK();
         primaryKey.setRestaurantId(restaurantId);

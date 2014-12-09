@@ -1,6 +1,7 @@
 package si.unilj.fri.easyboni.controller;
 
 import si.unilj.fri.easyboni.dto.RestaurantTO;
+import si.unilj.fri.easyboni.DuplicateEntityException;
 import si.unilj.fri.easyboni.service.RestaurantService;
 
 import javax.faces.bean.ManagedBean;
@@ -41,7 +42,11 @@ public class RestaurantBean {
             return "";
         }
 
-        restaurantService.addRating(restaurantId, userBean.getUser(), value);
+        try {
+            restaurantService.addRating(restaurantId, userBean.getUser(), value);
+        } catch (DuplicateEntityException e) {
+            e.printStackTrace();
+        }
         restaurants = restaurantService.findAllRestaurants();
 
         return "/index";

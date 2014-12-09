@@ -1,6 +1,7 @@
 package si.unilj.fri.easyboni.controller;
 
 import si.unilj.fri.easyboni.entities.User;
+import si.unilj.fri.easyboni.DuplicateEntityException;
 import si.unilj.fri.easyboni.service.UserService;
 
 import javax.annotation.PostConstruct;
@@ -54,7 +55,13 @@ public class UserBean {
             return "";
         }
 
-        userService.create(user);
+        try {
+            userService.create(user);
+        } catch (DuplicateEntityException e) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "User already exists.", "User already exists.");
+            facesContext.addMessage(null, message);
+            return "";
+        }
 
         return login();
     }

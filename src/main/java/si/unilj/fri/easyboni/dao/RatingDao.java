@@ -2,18 +2,29 @@ package si.unilj.fri.easyboni.dao;
 
 import si.unilj.fri.easyboni.dto.AggregatedRating;
 import si.unilj.fri.easyboni.entities.Rating;
+import si.unilj.fri.easyboni.DuplicateEntityException;
 
 import javax.inject.Named;
 import javax.persistence.Query;
+import javax.persistence.RollbackException;
 import java.util.List;
 
 @Named
 public class RatingDao extends BaseDao {
 
-    public void createRating(Rating rating) {
-        em.getTransaction().begin();
-        em.persist(rating);
-        em.getTransaction().commit();
+    public void createRating(Rating rating) throws DuplicateEntityException {
+        try {
+            em.getTransaction().begin();
+            em.persist(rating);
+            em.getTransaction().commit();
+        } catch (RollbackException e) {
+            throw new DuplicateEntityException(e);
+        } catch (RuntimeException e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
+        }
     }
 
     public AggregatedRating findRatingForOne(int restaurantId) {

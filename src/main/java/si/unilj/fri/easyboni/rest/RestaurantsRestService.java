@@ -1,9 +1,8 @@
 package si.unilj.fri.easyboni.rest;
 
-import si.unilj.fri.easyboni.dto.AggregatedRating;
 import si.unilj.fri.easyboni.controller.UserBean;
-import si.unilj.fri.easyboni.entities.Rating;
-import si.unilj.fri.easyboni.entities.RatingPK;
+import si.unilj.fri.easyboni.dto.AggregatedRating;
+import si.unilj.fri.easyboni.DuplicateEntityException;
 import si.unilj.fri.easyboni.service.RestaurantService;
 
 import javax.inject.Inject;
@@ -34,7 +33,11 @@ public class RestaurantsRestService {
             throw new WebApplicationException(Response.Status.FORBIDDEN);
         }
 
-        restaurantService.addRating(restaurantId, userBean.getUser(), value);
+        try {
+            restaurantService.addRating(restaurantId, userBean.getUser(), value);
+        } catch (DuplicateEntityException e) {
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
 
         return restaurantService.findRatingForOne(restaurantId);
     }
